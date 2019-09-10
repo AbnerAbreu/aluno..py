@@ -19,7 +19,7 @@ from django.conf.urls import include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from landing.views import AlunoViewSet
+from landing.views import AlunoViewSet, AlunoLista, AlunoDetails
 from professor.views import ProfessorViewSet
 
 router = routers.DefaultRouter()
@@ -28,6 +28,8 @@ router.register(r'professores',ProfessorViewSet)
 
 
 urlpatterns = [
+    path('alunos/<int:id>', AlunoDetails.as_view()),
+    path('alunos', AlunoLista.as_view()),
     path('',include(router.urls)),
     path('admin/', admin.site.urls),
     path('auth-api', obtain_auth_token),

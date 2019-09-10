@@ -25,8 +25,12 @@ class AlunoSerializer(serializers.Serializer):
         instance.nome = validated_data.get('nome')
         instance.idade = validated_data.get('idade')
         instance.email = validated_data.get('email')
-        professor_data = validated_data('prof_favorito')
+        professor_data = validated_data.pop('prof_favorito')
         professor = Professor.objects.get(id=professor_data['id'])
         instance.prof_favorito = professor
         instance.save()
         return instance
+
+class AlunoLightSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    nome = serializers.CharField(max_length=255)
